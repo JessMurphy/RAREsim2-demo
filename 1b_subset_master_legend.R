@@ -13,6 +13,9 @@ Nsim = 10000
 print(paste0("Running simulation with: Pop = ", pop, ", Batch = ", end))
 
 library(dplyr) #lib.loc="/home/math/murphjes/R_libs/"
+
+# read in reference legend file
+leg.ref = read.table(paste0("./input/1000G/", pop, "_Block37_CDS_ref_added.legend"), header = TRUE) 
   
 # read in master legend file
 master = read.table(paste0("./input/chr19.block37.", pop, ".master.legend"), sep='\t')
@@ -59,15 +62,21 @@ for (i in start:end){
   dups2 = dups %>% group_by(position) %>% sample_n(size=1)
 
   # merge all positions
-  master2 = union(singles, union(dups2, trips2)) %>% arrange(position) %>% select(id, position, a0, a1, AC, prob, exonic, gene, fun)
+  master2 = union(singles, union(dups2, trips2)) %>% select(id, position, a0, a1, AC, prob, exonic, gene, fun)
 
   master2$fun = ifelse(master2$fun=="synonymous SNV", "syn", "fun")
   master2$exonic[grepl("exonic", master2$exonic)] = "exonic"
   master2$gene[grepl("ZNF333", master2$gene)] = "ZNF333"
+  
+  # reorder the positions so they match the original reference legend file
+  master3 = master2[match(leg.ref$position, master2$position),]
+  
+  # check that the positions were ordered correctly
+  #identical(master3$position, leg.ref$position)
 
   # write output legend file
   out.name = paste0("./datasets/Hapgen10K/", pop, "/Round", n, "/chr19.block37.", pop, ".sim", i, ".legend")
-  write.table(master2, out.name, row.names=F, col.names=T, quote=F, sep='\t')
+  write.table(master3, out.name, row.names=F, col.names=T, quote=F, sep='\t')
 
   print(i)
 }
