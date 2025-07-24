@@ -8,7 +8,7 @@ We used a high-performance computing cluster with 2048 AMD cores and 16TB memory
 We ran the pipeline using a singularity container with R version 4.2.1, python version 3.10.6, and Hapgen2 version 2.2.0 installed.
 * SKATBinary
 
-![R package info](RAREsim2%20required%20R%20package%20info.png)
+![R session info](R%20session%20info.png)
 
 ## Pipeline
 
@@ -16,7 +16,7 @@ We ran the pipeline using a singularity container with R version 4.2.1, python v
 
 ### 1_submit_legend_files.sh
 
-* **1b_make_master_legend.R**:
+* **1a_make_master_legend.R**:
 * **1b_subset_master_legend.R**:
 
 ### 2_submit_hapgen2.sh
