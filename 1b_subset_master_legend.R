@@ -9,16 +9,19 @@ end = id - 10000*(pop.index-1)
 start = end - 99
 Nsim = 10000
 
+# block number on chromosome 19
+b = 37
+
 # Print confirmation
 print(paste0("Running simulation with: Pop = ", pop, ", Batch = ", end))
 
 library(dplyr) #lib.loc="/home/math/murphjes/R_libs/"
 
 # read in reference legend file
-leg.ref = read.table(paste0("./input/1000G/", pop, "_Block37_CDS_ref_added.legend"), header = TRUE) 
+leg.ref = read.table(paste0("./input/1000G/", pop, "_Block", b, "_CDS_ref_added.legend"), header = TRUE) 
   
 # read in master legend file
-master = read.table(paste0("./input/chr19.block37.", pop, ".master.legend"), sep='\t')
+master = read.table(paste0("./input/chr19.block", b, ".", pop, ".master.legend"), sep='\t')
 
 colnames(master) = c("position", "id", "a0", "a1", "AC", "prob", "exonic", "gene", "fun")
 master$alleles = paste0(master$a0, '/', master$a1)
@@ -75,7 +78,7 @@ for (i in start:end){
   #identical(master3$position, leg.ref$position)
 
   # write output legend file
-  out.name = paste0("./datasets/Hapgen10K/", pop, "/Round", n, "/chr19.block37.", pop, ".sim", i, ".legend")
+  out.name = paste0("./datasets/Hapgen10K/", pop, "/Round", n, "/chr19.block", b, ".", pop, ".sim", i, ".legend")
   write.table(master3, out.name, row.names=F, col.names=T, quote=F, sep='\t')
 
   print(i)
@@ -88,14 +91,14 @@ for (i in start:end){
 if (end==100){
   
 # read in the number of variants target data
-nvar = read.table("./input/gnomad/Block37_fun_syn_num_var.txt", header=T) %>% rename(n=downsample, Pop=pop)
+nvar = read.table("./input/gnomad/Block", b, "_fun_syn_num_var.txt", header=T) %>% rename(n=downsample, Pop=pop)
      
 # divide by the region size for per_kb
 reg_size = 19.029 
 nvar2 = nvar %>% filter(Pop==tolower(pop)) %>% mutate(fun_per_kb=obs_fun/reg_size, syn_per_kb=obs_syn/reg_size) %>% select(-block, -Pop)
   
 # save number of variants target data
-write.table(nvar2 %>% select(-c(obs_syn, obs_fun)), paste0("./input/mac_bins/chr19_block37_", pop, "_nvar_target_data.txt"), row.names=F, quote=F, sep='\t')
+write.table(nvar2 %>% select(-c(obs_syn, obs_fun)), paste0("./input/mac_bins/chr19_block", b, "_", pop, "_nvar_target_data.txt"), row.names=F, quote=F, sep='\t')
   
 # minor allele frequencies for the target data
 Ntar = last(nvar$n)
@@ -136,7 +139,7 @@ mac_syn_tar2 = mac_syn_tar %>% mutate(Prop = count/nrow(leg_syn)) %>% select(-co
   
 # save allele frequency spectrum (AFS) target data
 write.table(mac_tar %>% mutate(fun_prop=mac_fun_tar2$Prop, syn_prop=mac_syn_tar2$Prop), 
-            paste0('./input/mac_bins/chr19_block37_', pop, '_AFS_target_data.txt'), row.names = F, quote = F, sep = '\t')
+            paste0('./input/mac_bins/chr19_block', b, '_', pop, '_AFS_target_data.txt'), row.names = F, quote = F, sep = '\t')
   
 # minor allele frequencies for the simulated data
 sim_maf1 = round(0.01*(2*Nsim))

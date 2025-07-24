@@ -7,17 +7,21 @@ pop.list = c("AFR", "EAS", "NFE", "SAS")
 pop = pop.list[pop.index]
 print(paste0("Pop: ", pop))
 
+# block number on chromosome 19
+b = 37
+
 # load libraries
 library(dplyr)
 library(tidyr)
 library(DT, lib.loc="/home/math/murphjes/R/myLibs/")
 
 # read in reference legend file (see original RAREsim paper for more details)
-leg.ref = read.table(paste0("./input/1000G/", pop, "_Block37_CDS_ref_added.legend"), header = TRUE) 
+# original 1000G data downloaded from https://mathgen.stats.ox.ac.uk/impute/1000GP_Phase3.html (1000GP_Phase3.tgz)
+leg.ref = read.table(paste0("./input/1000G/", pop, "_Block", b, "_CDS_ref_added.legend"), header = TRUE) 
 pos.1000G = leg.ref %>% filter(!grepl("Un_Known", id)) %>% select(position)
   
 # write list of positions in legend file (necessary for annovar)
-#write.table(leg.ref$position, paste0("./input/1000G/", pop, ".1000G.chr19.block37.positions.txt"), 
+#write.table(leg.ref$position, paste0("./input/1000G/", pop, ".1000G.chr19.block", b, ".positions.txt"), 
 #sep="\t", quote=F, row.names=F, col.names=F)
   
 # code unknown positions with 0 for a0/a1 
@@ -28,13 +32,13 @@ leg.ref$a1 = ifelse(grepl("Un_Known", leg.ref$id), 0, leg.ref$a1)
 # GnomAD (vcf): https://storage.googleapis.com/gnomad-public/release/2.1.1/vcf/exomes/gnomad.exomes.r2.1.1.sites.vcf.bgz 
 # and https://storage.googleapis.com/gnomad-public/release/2.1.1/vcf/exomes/gnomad.exomes.r2.1.1.sites.vcf.bgz.tbi
   
-# filter gnomad data (command line)
+# filter gnomad data (command line) - update using min and max positions of leg.ref file
 # vcftools --gzvcf ./input/gnomad/gnomad.exomes.r2.1.1.sites.19.vcf.bgz --out ./input/gnomad/gnomad.exomes.r2.1.1.sites.19.block37_NFE.vcf \
 # --chr 19 --from-bp 14492336 --to-bp 14887568 --remove-indels --remove-filtered-all \
 # --get-INFO AF_nfe --get-INFO AC_nfe --get-INFO AN_nfe --get-INFO nhomalt_nfe
   
 # read in gnomad data
-gnomad = read.table(paste0("./input/gnomad/gnomad.exomes.r2.1.1.sites.19.block37_", pop, ".vcf.INFO"), sep='\t', header=T) %>% rename(position = POS)
+gnomad = read.table(paste0("./input/gnomad/gnomad.exomes.r2.1.1.sites.19.block", b, "_", pop, ".vcf.INFO"), sep='\t', header=T) %>% rename(position = POS)
 names(gnomad)[5:8] = sapply(strsplit(names(gnomad)[5:8], "_", fixed=T), head, 1)
 pos.gnomad = gnomad %>% filter(position %in% leg.ref$position) %>% distinct(position) # 4,447 positions
   
@@ -91,7 +95,7 @@ combined2 = union(singles, union(dups.known, out)) %>% arrange(position)
 # fgrep -wf ./input/1000G/1000G.chr19.block37.positions.txt ./input/annovar/annovar.chr19.block37.txt > ./input/annovar/annovar.chr19.block37.filtered.txt
 
 # read in ANNOVAR file
-annovar = read.table("./input/annovar/annovar.chr19.block37.filtered.txt", sep="\t", header=F)
+annovar = read.table(paste0("./input/annovar/annovar.chr19.block", b, ".filtered.txt"), sep="\t", header=F)
   
 # unknown variants not in gnomad or 1000G
 unknown = combined2 %>% filter(grepl("Un_Known", id), is.na(REF)) %>% distinct(position) # 14,537
@@ -137,7 +141,7 @@ master$AC = ifelse(is.na(master$AC), ".", master$AC)
 # create file for annovar functional annotation
 master2 = master %>% select(CHROM, START=position, END=position, REF=a0, ALT=a1, AC, prob)
   
-#write.table(master2, paste0('./input/annovar/master.chr19.block37.', pop, '.txt'), 
+#write.table(master2, paste0('./input/annovar/master.chr19.block', b, '.', pop, '.txt'), 
 #row.names=F, col.names=F, quote=F, sep='\t') # necessary for annovar functional annotation
   
 # ANNOVAR functional annotation steps (command line)
@@ -145,9 +149,9 @@ master2 = master %>% select(CHROM, START=position, END=position, REF=a0, ALT=a1,
 # ./input/annovar/annotate_variation.pl -geneanno -buildver hg19 ./input/annovar/master.chr19.block37.NFE.txt ./input/annovar/humandb/
   
 # read in functional annotation files
-anno = read.table(paste0("./input/annovar/master.chr19.block37.", pop, ".txt.variant_function"), sep='\t') %>% 
+anno = read.table(paste0("./input/annovar/master.chr19.block", b, ".", pop, ".txt.variant_function"), sep='\t') %>% 
   select(position2 = V4, InEx = V1, gene = V2) # all positions
-anno.exo = read.table(paste0("./input/annovar/master.chr19.block37.", pop, ".txt.exonic_variant_function"), sep='\t') %>% select(position2 = V5, fun = V2) # only exonic positions
+anno.exo = read.table(paste0("./input/annovar/master.chr19.block", b, ".", pop, ".txt.exonic_variant_function"), sep='\t') %>% select(position2 = V5, fun = V2) # only exonic positions
   
 # determine which positions are intronic
 introns = which(anno$InEx=="intronic")
@@ -158,4 +162,4 @@ anno[-introns, "fun"] = anno.exo$fun
   
 # merge the functional annotations with the master legend file
 leg.master = cbind(master, anno) %>% select(position, id, a0, a1, AC, prob, InEx, gene, fun)
-write.table(leg.master, paste0('./input/chr19.block37.', pop, '.master.legend'), row.names=F, col.names=F, quote=F, sep='\t')  
+write.table(leg.master, paste0('./input/chr19.block', b, '.', pop, '.master.legend'), row.names=F, col.names=F, quote=F, sep='\t')  
