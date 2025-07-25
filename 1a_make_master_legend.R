@@ -18,7 +18,7 @@ library(DT, lib.loc="/home/math/murphjes/R/myLibs/")
 # read in reference legend file (see original RAREsim paper for more details)
 # original 1000G data downloaded from https://mathgen.stats.ox.ac.uk/impute/1000GP_Phase3.html (1000GP_Phase3.tgz)
 leg.ref = read.table(paste0("./input/1000G/", pop, "_Block", b, "_CDS_ref_added.legend"), header = TRUE) 
-pos.1000G = leg.ref %>% filter(!grepl("Un_Known", id)) %>% select(position)
+pos.1000G = leg.ref %>% filter(!grepl("Un_Known", id)) %>% select(position) # known 1000G positions
   
 # write list of positions in legend file (necessary for annovar)
 #write.table(leg.ref$position, paste0("./input/1000G/", pop, ".1000G.chr19.block", b, ".positions.txt"), 
@@ -36,7 +36,7 @@ leg.ref$a1 = ifelse(grepl("Un_Known", leg.ref$id), 0, leg.ref$a1)
 # vcftools --gzvcf ./input/gnomad/gnomad.exomes.r2.1.1.sites.19.vcf.bgz --out ./input/gnomad/gnomad.exomes.r2.1.1.sites.19.block37_NFE.vcf \
 # --chr 19 --from-bp 14492336 --to-bp 14887568 --remove-indels --remove-filtered-all \
 # --get-INFO AF_nfe --get-INFO AC_nfe --get-INFO AN_nfe --get-INFO nhomalt_nfe
-  
+
 # read in gnomad data
 gnomad = read.table(paste0("./input/gnomad/gnomad.exomes.r2.1.1.sites.19.block", b, "_", pop, ".vcf.INFO"), sep='\t', header=T) %>% rename(position = POS)
 names(gnomad)[5:8] = sapply(strsplit(names(gnomad)[5:8], "_", fixed=T), head, 1)
@@ -48,8 +48,13 @@ combined = merge(leg.ref, gnomad, by="position", all.x=T) %>% arrange(position)
 # subset the multiallelic SNVs
 dups = combined %>% group_by(position) %>% filter(n()>1) 
   
-# remove duplicates/triplicates from known multiallelic SNVs
+# remove duplicates/triplicates with the same alternate allele from known multiallelic SNVs
 dups.known = dups %>% filter(!grepl("Un_Known", id), a1==ALT) %>% mutate(prob = "1") 
+
+# remove duplicates/triplicates with different alternate alleles from known multiallelic SNVs
+# (just use 1000G alternate allele)
+dups.known2 = dups %>% filter(!grepl("Un_Known", id), !(position %in% dups.known$position)) %>%
+  distinct(position, .keep_all=T) %>% mutate(prob = "1") 
   
 # extract the positions of unknown multiallelic SNVs
 dups.unknown = dups %>% filter(grepl("Un_Known", id)) 
@@ -82,7 +87,7 @@ singles$prob = ifelse(is.na(singles$REF), ".", "1")
 singles$prob = ifelse(!grepl("Un_Known", singles$id), "1", singles$prob)
   
 # combine biallelic SNVS back with the known/unknown multiallelic SNVs
-combined2 = union(singles, union(dups.known, out)) %>% arrange(position)
+combined2 = bind_rows(singles, dups.known, dups.known2, out) %>% arrange(position)
   
 # ANNOVAR (website): https://annovar.openbioinformatics.org/en/latest/
 # ANNOVAR (wiki): https://davetang.org/wiki2/index.php?title=ANNOVAR
@@ -91,7 +96,7 @@ combined2 = union(singles, union(dups.known, out)) %>% arrange(position)
 # tar -xzf ./input/annovar.latest.tar.gz
 # ./input/annovar/annotate_variation.pl -downdb -buildver hg19 seq ./input/annovar/humandb/hg19_seq/
 # ./input/annovar/convert2annovar.pl -format region -seqdir ./input/annovar/humandb/hg19_seq/ -out ./input/annovar/annovar.chr19.block37.txt chr19:14492336-14887568
-# sed -i 's/\r//' ./1000G/1000G.chr19.block37.positions.txt
+# sed -i 's/\r//' ./input/1000G/1000G.chr19.block37.positions.txt
 # fgrep -wf ./input/1000G/1000G.chr19.block37.positions.txt ./input/annovar/annovar.chr19.block37.txt > ./input/annovar/annovar.chr19.block37.filtered.txt
 
 # read in ANNOVAR file
