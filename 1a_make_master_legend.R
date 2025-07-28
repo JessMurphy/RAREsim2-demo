@@ -13,29 +13,84 @@ b = 37
 # load libraries
 library(dplyr)
 library(tidyr)
-library(DT, lib.loc="/home/math/murphjes/R/myLibs/")
+library(DT)
+library(data.table)
+library(stringr)
 
-# read in reference legend file (see original RAREsim paper for more details)
-# original 1000G data downloaded from https://mathgen.stats.ox.ac.uk/impute/1000GP_Phase3.html (1000GP_Phase3.tgz)
-leg.ref = read.table(paste0("./input/1000G/", pop, "_Block", b, "_CDS_ref_added.legend"), header = TRUE) 
-pos.1000G = leg.ref %>% filter(!grepl("Un_Known", id)) %>% select(position) # known 1000G positions
-  
-# write list of positions in legend file (necessary for annovar)
-#write.table(leg.ref$position, paste0("./input/1000G/", pop, ".1000G.chr19.block", b, ".positions.txt"), 
-#sep="\t", quote=F, row.names=F, col.names=F)
-  
-# code unknown positions with 0 for a0/a1 
-leg.ref$a0 = ifelse(grepl("Un_Known", leg.ref$id), 0, leg.ref$a0)
-leg.ref$a1 = ifelse(grepl("Un_Known", leg.ref$id), 0, leg.ref$a1)
-  
-# download gnomad data
-# GnomAD (vcf): https://storage.googleapis.com/gnomad-public/release/2.1.1/vcf/exomes/gnomad.exomes.r2.1.1.sites.vcf.bgz 
-# and https://storage.googleapis.com/gnomad-public/release/2.1.1/vcf/exomes/gnomad.exomes.r2.1.1.sites.vcf.bgz.tbi
-  
-# filter gnomad data (command line) - update using min and max positions of leg.ref file
-# vcftools --gzvcf ./input/gnomad/gnomad.exomes.r2.1.1.sites.19.vcf.bgz --out ./input/gnomad/gnomad.exomes.r2.1.1.sites.19.block37_NFE.vcf \
-# --chr 19 --from-bp 14492336 --to-bp 14887568 --remove-indels --remove-filtered-all \
-# --get-INFO AF_nfe --get-INFO AC_nfe --get-INFO AN_nfe --get-INFO nhomalt_nfe
+
+# read in the gencode coding positions for the specific block
+code.pos = read.table(paste0("./input/positions/Block", b, "_gencode_positions.txt")) %>%
+  rename(position=V1)
+
+# read in the original sample file (the one used to generate the hap file)
+sample.ids.all = read.table("./input/1000G/1000GP_Phase3.sample", header = TRUE)
+
+# read in the sample file filtered by population
+sample.ids.pop = read.table(paste0("./input/1000G/1000GP_Phase3_", pop, ".sample"), header = TRUE)
+
+# find the column indices in the hap file
+# (each sample has 2 haplotype columns, so the positions are 2*i-1 and 2*i)
+id.indices = which(sample.ids.all$ID %in% sample.ids.pop$ID)
+hap.cols = sort(c(2*id.indices-1, 2*id.indices))
+
+# read in the haplotype file filtered to the specific block
+hap.all = fread(paste0("./input/1000G/1000GP_Phase3_chr19_Block", b, ".hap.gz"))
+
+# subset the columns
+hap.pop = hap.all %>% select(paste0("V", hap.cols))
+
+# read in the legend file filtered to the specific block
+leg = read.table(paste0("./input/1000G/1000GP_Phase3_chr19_Block", b, ".legend"), header=T) %>% 
+  select(-rownum) %>% mutate(AC=rowSums(hap.pop), row=1:nrow(hap.pop))
+
+# for multiallelic positions, choose the variant with the largest AC
+leg2 = leg %>% group_by(position) %>% filter(n()==1 | AC==max(AC)) %>%
+  slice(1) %>% ungroup()
+
+removed = setdiff(leg$row, leg2$row)
+
+# remove the duplicated variants from the haplotype file
+hap.pop2 = hap.pop[-removed,]
+
+
+# add zeros back in to the legend and haplotype files for the coding positions
+
+# merge the legend file with the gencode positions
+leg.coding = merge(leg2, code.pos, by="position", all.y=T)
+
+# create an empty haplotype matrix
+hap.ref = as.data.frame(matrix(0, nrow=nrow(leg.coding), ncol=ncol(hap.pop2)))
+
+# add the 1000G haplotypes back in
+hap.ref[which(!is.na(leg.coding$id)),] = hap.pop2
+
+# save the haplotypes for input into Hapgen2
+write.table(hap.ref, paste0("./input/1000G/1000G_chr19_block", b, "_", pop, "_ref.hap"), 
+            quote=F, row.names=F, col.names=F)
+
+# reformat the legend file
+leg.ref = leg.coding %>% 
+  mutate(hap.AC = rowSums(hap.coding), AC = ifelse(is.na(AC), 0, AC),
+         id = if_else(str_detect(id, "^rs[0-9]+:"), str_replace(id, "^rs[0-9]+:", "19:"), id),
+         id = case_when(is.na(id) ~ paste0("19:", position, "_Un_Known"),
+                        str_detect(id, "^19:[0-9]+:[A-Z]+:[A-Z]+$") ~ {
+                          parts = str_split(id, ":", simplify = TRUE)
+                          paste0(parts[, 1], ":", parts[, 2], "_", parts[, 3], "_", parts[, 4])
+                          }, TRUE ~ id)) %>%
+  select(-c(TYPE:hap.AC))
+
+# double check they were merged successfully
+#which(leg.ref$AC!=leg.ref$hap.AC) #0
+
+# read in Megan's original reference legend and haplotype files
+#leg.ref.og = read.table(paste0("./input/1000G/old/", pop, "_Block", b, "_CDS_ref_added.legend"), header = TRUE) 
+#hap.ref.og = fread(paste0("./input/1000G/old/", pop, "_Block", b, "_CDS_ref_added.hap.gz")) 
+
+#leg.og.known = leg.ref.og %>% mutate(AC=rowSums(hap.ref.og)) %>% filter(!grepl("Un_Known", id))
+#leg.comb = merge(leg2, leg.og.known, by="position") # the allele counts don't match up between the two
+
+# subset the known 1000G positions
+pos.1000G = leg.ref %>% filter(!grepl("Un_Known", id)) %>% select(position)
 
 # read in gnomad data
 gnomad = read.table(paste0("./input/gnomad/gnomad.exomes.r2.1.1.sites.19.block", b, "_", pop, ".vcf.INFO"), sep='\t', header=T) %>% rename(position = POS)
@@ -89,15 +144,7 @@ singles$prob = ifelse(!grepl("Un_Known", singles$id), "1", singles$prob)
 # combine biallelic SNVS back with the known/unknown multiallelic SNVs
 combined2 = bind_rows(singles, dups.known, dups.known2, out) %>% arrange(position)
   
-# ANNOVAR (website): https://annovar.openbioinformatics.org/en/latest/
-# ANNOVAR (wiki): https://davetang.org/wiki2/index.php?title=ANNOVAR
-  
-# ANNOVAR steps (command line)
-# tar -xzf ./input/annovar.latest.tar.gz
-# ./input/annovar/annotate_variation.pl -downdb -buildver hg19 seq ./input/annovar/humandb/hg19_seq/
-# ./input/annovar/convert2annovar.pl -format region -seqdir ./input/annovar/humandb/hg19_seq/ -out ./input/annovar/annovar.chr19.block37.txt chr19:14492336-14887568
-# sed -i 's/\r//' ./input/1000G/1000G.chr19.block37.positions.txt
-# fgrep -wf ./input/1000G/1000G.chr19.block37.positions.txt ./input/annovar/annovar.chr19.block37.txt > ./input/annovar/annovar.chr19.block37.filtered.txt
+########## See 1b_get_annotations.sh file to run ANNOVAR ##########
 
 # read in ANNOVAR file
 annovar = read.table(paste0("./input/annovar/annovar.chr19.block", b, ".filtered.txt"), sep="\t", header=F)
@@ -149,10 +196,8 @@ master2 = master %>% select(CHROM, START=position, END=position, REF=a0, ALT=a1,
 #write.table(master2, paste0('./input/annovar/master.chr19.block', b, '.', pop, '.txt'), 
 #row.names=F, col.names=F, quote=F, sep='\t') # necessary for annovar functional annotation
   
-# ANNOVAR functional annotation steps (command line)
-# ./input/annovar/annotate_variation.pl -downdb -buildver hg19 -webfrom annovar refGene ./input/annovar/humandb/
-# ./input/annovar/annotate_variation.pl -geneanno -buildver hg19 ./input/annovar/master.chr19.block37.NFE.txt ./input/annovar/humandb/
-  
+########## See 1b_get_annotations.sh file again ##########
+
 # read in functional annotation files
 anno = read.table(paste0("./input/annovar/master.chr19.block", b, ".", pop, ".txt.variant_function"), sep='\t') %>% 
   select(position2 = V4, InEx = V1, gene = V2) # all positions
