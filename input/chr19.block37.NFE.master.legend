@@ -16886,8 +16886,8 @@
 14583452	19:14583452_C_T	C	T	1	1	exonic	PTGER1	nonsynonymous SNV
 14583453	19:14583453_G_C	G	C	0	0.5	exonic	PTGER1	synonymous SNV
 14583453	19:14583453_G_A	G	A	0	0.5	exonic	PTGER1	synonymous SNV
-14583454	19:14583454_G_T	G	T	0	0.5	exonic	PTGER1	nonsynonymous SNV
 14583454	19:14583454_G_A	G	A	0	0.5	exonic	PTGER1	nonsynonymous SNV
+14583454	19:14583454_G_T	G	T	0	0.5	exonic	PTGER1	nonsynonymous SNV
 14583455	19:14583455_G_A	G	A	.	.	exonic	PTGER1	nonsynonymous SNV
 14583455	19:14583455_G_C	G	C	.	.	exonic	PTGER1	nonsynonymous SNV
 14583455	19:14583455_G_T	G	T	.	.	exonic	PTGER1	nonsynonymous SNV
@@ -18367,8 +18367,8 @@
 14584567	19:14584567_A_C	A	C	.	.	exonic	PTGER1	nonsynonymous SNV
 14584567	19:14584567_A_G	A	G	.	.	exonic	PTGER1	nonsynonymous SNV
 14584567	19:14584567_A_T	A	T	.	.	exonic	PTGER1	nonsynonymous SNV
-14584568	19:14584568_A_T	A	T	0	0.5	exonic	PTGER1	nonsynonymous SNV
 14584568	19:14584568_A_G	A	G	0	0.5	exonic	PTGER1	nonsynonymous SNV
+14584568	19:14584568_A_T	A	T	0	0.5	exonic	PTGER1	nonsynonymous SNV
 14584569	19:14584569_G_A	G	A	.	.	exonic	PTGER1	synonymous SNV
 14584569	19:14584569_G_C	G	C	.	.	exonic	PTGER1	nonsynonymous SNV
 14584569	19:14584569_G_T	G	T	.	.	exonic	PTGER1	stopgain
@@ -19187,8 +19187,8 @@
 14584859	19:14584859_C_A	C	A	.	.	exonic	PTGER1	nonsynonymous SNV
 14584859	19:14584859_C_G	C	G	.	.	exonic	PTGER1	nonsynonymous SNV
 14584859	19:14584859_C_T	C	T	.	.	exonic	PTGER1	nonsynonymous SNV
-14584860	19:14584860_C_T	C	T	1	0.5	exonic	PTGER1	synonymous SNV
 14584860	19:14584860_C_A	C	A	1	0.5	exonic	PTGER1	synonymous SNV
+14584860	19:14584860_C_T	C	T	1	0.5	exonic	PTGER1	synonymous SNV
 14584861	19:14584861_G_A	G	A	.	.	exonic	PTGER1	nonsynonymous SNV
 14584861	19:14584861_G_C	G	C	.	.	exonic	PTGER1	nonsynonymous SNV
 14584861	19:14584861_G_T	G	T	.	.	exonic	PTGER1	nonsynonymous SNV
@@ -19414,8 +19414,8 @@
 14584944	19:14584944_G_A	G	A	.	.	exonic	PTGER1	synonymous SNV
 14584944	19:14584944_G_C	G	C	.	.	exonic	PTGER1	synonymous SNV
 14584944	19:14584944_G_T	G	T	.	.	exonic	PTGER1	synonymous SNV
-14584945	19:14584945_C_T	C	T	0	0.5	exonic	PTGER1	nonsynonymous SNV
 14584945	19:14584945_C_A	C	A	0	0.5	exonic	PTGER1	nonsynonymous SNV
+14584945	19:14584945_C_T	C	T	0	0.5	exonic	PTGER1	nonsynonymous SNV
 14584946	19:14584946_G_A	G	A	.	.	exonic	PTGER1	nonsynonymous SNV
 14584946	19:14584946_G_C	G	C	.	.	exonic	PTGER1	nonsynonymous SNV
 14584946	19:14584946_G_T	G	T	.	.	exonic	PTGER1	nonsynonymous SNV
@@ -21048,8 +21048,8 @@
 14591236	19:14591236_T_C	T	C	.	.	exonic	GIPC1	nonsynonymous SNV
 14591236	19:14591236_T_G	T	G	.	.	exonic	GIPC1	nonsynonymous SNV
 14591237	19:14591237_C_T	C	T	0	1	exonic	GIPC1	nonsynonymous SNV
-14591238	19:14591238_G_A	G	A	0	0.5	exonic	GIPC1	synonymous SNV
-14591238	19:14591238_G_C	G	C	0	0.5	exonic	GIPC1	nonsynonymous SNV
+14591238	19:14591238_G_C	G	C	0	0.5	exonic	GIPC1	synonymous SNV
+14591238	19:14591238_G_A	G	A	0	0.5	exonic	GIPC1	nonsynonymous SNV
 14591239	19:14591239_A_C	A	C	.	.	exonic	GIPC1	nonsynonymous SNV
 14591239	19:14591239_A_G	A	G	.	.	exonic	GIPC1	nonsynonymous SNV
 14591239	19:14591239_A_T	A	T	.	.	exonic	GIPC1	nonsynonymous SNV
@@ -22014,8 +22014,8 @@
 14593661	19:14593661_G_C	G	C	.	.	exonic	GIPC1	nonsynonymous SNV
 14593661	19:14593661_G_T	G	T	.	.	exonic	GIPC1	nonsynonymous SNV
 14593662	19:14593662_G_A	G	A	0	1	exonic	GIPC1	nonsynonymous SNV
-14593663	19:14593663_G_T	G	T	0	0.5	exonic	GIPC1	synonymous SNV
 14593663	19:14593663_G_A	G	A	0	0.5	exonic	GIPC1	synonymous SNV
+14593663	19:14593663_G_T	G	T	0	0.5	exonic	GIPC1	synonymous SNV
 14593664	19:14593664_C_A	C	A	.	.	exonic	GIPC1	nonsynonymous SNV
 14593664	19:14593664_C_G	C	G	.	.	exonic	GIPC1	nonsynonymous SNV
 14593664	19:14593664_C_T	C	T	.	.	exonic	GIPC1	nonsynonymous SNV
@@ -22362,8 +22362,8 @@
 14626776	19:14626776_T_G	T	G	.	.	exonic	DNAJB1	synonymous SNV
 14626777	19:14626777_A_G	A	G	0	1	exonic	DNAJB1	nonsynonymous SNV
 14626778	19:14626778_C_T	C	T	1	1	exonic	DNAJB1	nonsynonymous SNV
-14626779	19:14626779_G_C	G	C	0	0.5	exonic	DNAJB1	synonymous SNV
 14626779	19:14626779_G_A	G	A	0	0.5	exonic	DNAJB1	synonymous SNV
+14626779	19:14626779_G_C	G	C	0	0.5	exonic	DNAJB1	synonymous SNV
 14626780	19:14626780_G_A	G	A	0	1	exonic	DNAJB1	nonsynonymous SNV
 14626781	19:14626781_T_A	T	A	.	.	exonic	DNAJB1	nonsynonymous SNV
 14626781	19:14626781_T_C	T	C	.	.	exonic	DNAJB1	nonsynonymous SNV
@@ -23230,8 +23230,8 @@
 14627436	19:14627436_A_C	A	C	.	.	exonic	DNAJB1	nonsynonymous SNV
 14627436	19:14627436_A_G	A	G	.	.	exonic	DNAJB1	nonsynonymous SNV
 14627436	19:14627436_A_T	A	T	.	.	exonic	DNAJB1	nonsynonymous SNV
-14627437	19:14627437_C_T	C	T	0	0.5	exonic	DNAJB1	synonymous SNV
 14627437	19:14627437_C_G	C	G	0	0.5	exonic	DNAJB1	synonymous SNV
+14627437	19:14627437_C_T	C	T	0	0.5	exonic	DNAJB1	synonymous SNV
 14627438	19:14627438_C_A	C	A	.	.	exonic	DNAJB1	nonsynonymous SNV
 14627438	19:14627438_C_G	C	G	.	.	exonic	DNAJB1	nonsynonymous SNV
 14627438	19:14627438_C_T	C	T	.	.	exonic	DNAJB1	nonsynonymous SNV
@@ -23576,11 +23576,11 @@
 14627580	19:14627580_C_A	C	A	.	.	exonic	DNAJB1	nonsynonymous SNV
 14627580	19:14627580_C_G	C	G	.	.	exonic	DNAJB1	nonsynonymous SNV
 14627580	19:14627580_C_T	C	T	.	.	exonic	DNAJB1	nonsynonymous SNV
-14627581	19:14627581_T_G	T	G	0	0.5	exonic	DNAJB1	synonymous SNV
 14627581	19:14627581_T_C	T	C	0	0.5	exonic	DNAJB1	synonymous SNV
+14627581	19:14627581_T_G	T	G	0	0.5	exonic	DNAJB1	synonymous SNV
 14627582	19:14627582_G_A	G	A	1	1	exonic	DNAJB1	nonsynonymous SNV
-14627583	19:14627583_G_C	G	C	0	0.5	exonic	DNAJB1	nonsynonymous SNV
 14627583	19:14627583_G_A	G	A	0	0.5	exonic	DNAJB1	nonsynonymous SNV
+14627583	19:14627583_G_C	G	C	0	0.5	exonic	DNAJB1	nonsynonymous SNV
 14627584	19:14627584_G_A	G	A	0	1	exonic	DNAJB1	synonymous SNV
 14627585	19:14627585_G_A	G	A	.	.	exonic	DNAJB1	nonsynonymous SNV
 14627585	19:14627585_G_C	G	C	.	.	exonic	DNAJB1	nonsynonymous SNV
@@ -23629,8 +23629,8 @@
 14627601	19:14627601_G_T	G	T	.	.	exonic	DNAJB1	synonymous SNV
 14627602	19:14627602_G_A	G	A	1	1	exonic	DNAJB1	synonymous SNV
 14627603	19:14627603_G_A	G	A	0	1	exonic	DNAJB1	nonsynonymous SNV
-14627604	19:14627604_C_A	C	A	0	0.5	exonic	DNAJB1	nonsynonymous SNV
 14627604	19:14627604_C_T	C	T	0	0.5	exonic	DNAJB1	nonsynonymous SNV
+14627604	19:14627604_C_A	C	A	0	0.5	exonic	DNAJB1	nonsynonymous SNV
 14627605	19:14627605_G_A	G	A	1	1	exonic	DNAJB1	synonymous SNV
 14627606	19:14627606_G_A	G	A	.	.	exonic	DNAJB1	nonsynonymous SNV
 14627606	19:14627606_G_C	G	C	.	.	exonic	DNAJB1	nonsynonymous SNV
@@ -23825,8 +23825,8 @@
 14627688	19:14627688_C_A	C	A	.	.	exonic	DNAJB1	nonsynonymous SNV
 14627688	19:14627688_C_G	C	G	.	.	exonic	DNAJB1	nonsynonymous SNV
 14627688	19:14627688_C_T	C	T	.	.	exonic	DNAJB1	nonsynonymous SNV
-14627689	19:14627689_A_G	A	G	0	0.5	exonic	DNAJB1	synonymous SNV
-14627689	19:14627689_A_C	A	C	0	0.5	exonic	DNAJB1	nonsynonymous SNV
+14627689	19:14627689_A_C	A	C	0	0.5	exonic	DNAJB1	synonymous SNV
+14627689	19:14627689_A_G	A	G	0	0.5	exonic	DNAJB1	nonsynonymous SNV
 14627690	19:14627690_A_C	A	C	.	.	exonic	DNAJB1	nonsynonymous SNV
 14627690	19:14627690_A_G	A	G	.	.	exonic	DNAJB1	nonsynonymous SNV
 14627690	19:14627690_A_T	A	T	.	.	exonic	DNAJB1	nonsynonymous SNV
@@ -24621,10 +24621,10 @@
 14629109	19:14629109_T_A	T	A	.	.	exonic	DNAJB1	nonsynonymous SNV
 14629109	19:14629109_T_C	T	C	.	.	exonic	DNAJB1	nonsynonymous SNV
 14629109	19:14629109_T_G	T	G	.	.	exonic	DNAJB1	nonsynonymous SNV
-14629110	19:14629110_C_A	C	A	1	0.5	exonic	DNAJB1	stopgain
-14629110	19:14629110_C_T	C	T	1	0.5	exonic	DNAJB1	nonsynonymous SNV
-14629111	19:14629111_G_A	G	A	1	0.5	exonic	DNAJB1	synonymous SNV
-14629111	19:14629111_G_C	G	C	1	0.5	exonic	DNAJB1	nonsynonymous SNV
+14629110	19:14629110_C_T	C	T	1	0.5	exonic	DNAJB1	stopgain
+14629110	19:14629110_C_A	C	A	1	0.5	exonic	DNAJB1	nonsynonymous SNV
+14629111	19:14629111_G_C	G	C	1	0.5	exonic	DNAJB1	synonymous SNV
+14629111	19:14629111_G_A	G	A	1	0.5	exonic	DNAJB1	nonsynonymous SNV
 14629112	19:14629112_T_A	T	A	.	.	exonic	DNAJB1	nonsynonymous SNV
 14629112	19:14629112_T_C	T	C	.	.	exonic	DNAJB1	nonsynonymous SNV
 14629112	19:14629112_T_G	T	G	.	.	exonic	DNAJB1	nonsynonymous SNV
@@ -27283,8 +27283,8 @@
 14677013	19:14677013_C_G	C	G	.	.	exonic	NDUFB7	nonsynonymous SNV
 14677013	19:14677013_C_T	C	T	.	.	exonic	NDUFB7	nonsynonymous SNV
 14677014	19:14677014_C_T	C	T	0	1	exonic	NDUFB7	synonymous SNV
-14677015	19:14677015_C_T	C	T	0	0.5	exonic	NDUFB7	nonsynonymous SNV
 14677015	19:14677015_C_G	C	G	0	0.5	exonic	NDUFB7	nonsynonymous SNV
+14677015	19:14677015_C_T	C	T	0	0.5	exonic	NDUFB7	nonsynonymous SNV
 14677016	19:14677016_G_A	G	A	0	1	exonic	NDUFB7	nonsynonymous SNV
 14677017	19:14677017_C_A	C	A	.	.	exonic	NDUFB7	synonymous SNV
 14677017	19:14677017_C_G	C	G	.	.	exonic	NDUFB7	synonymous SNV
@@ -27492,8 +27492,8 @@
 14677601	19:14677601_T_A	T	A	.	.	exonic	NDUFB7	nonsynonymous SNV
 14677601	19:14677601_T_C	T	C	.	.	exonic	NDUFB7	nonsynonymous SNV
 14677601	19:14677601_T_G	T	G	.	.	exonic	NDUFB7	nonsynonymous SNV
-14677602	19:14677602_C_G	C	G	1	0.5	exonic	NDUFB7	nonsynonymous SNV
 14677602	19:14677602_C_T	C	T	1	0.5	exonic	NDUFB7	nonsynonymous SNV
+14677602	19:14677602_C_G	C	G	1	0.5	exonic	NDUFB7	nonsynonymous SNV
 14677603	19:14677603_G_A	G	A	1	1	exonic	NDUFB7	synonymous SNV
 14677604	19:14677604_T_C	T	C	0	1	exonic	NDUFB7	nonsynonymous SNV
 14677605	19:14677605_G_A	G	A	.	.	exonic	NDUFB7	nonsynonymous SNV
@@ -32391,8 +32391,8 @@
 14748942	19:14748942_G_C	G	C	.	.	exonic	ADGRE3	nonsynonymous SNV
 14748942	19:14748942_G_T	G	T	.	.	exonic	ADGRE3	nonsynonymous SNV
 14748943	19:14748943_C_G	C	G	0	1	exonic	ADGRE3	nonsynonymous SNV
-14748944	19:14748944_C_A	C	A	2	0.5	exonic	ADGRE3	nonsynonymous SNV
-14748944	19:14748944_C_T	C	T	2	0.5	exonic	ADGRE3	stopgain
+14748944	19:14748944_C_T	C	T	2	0.5	exonic	ADGRE3	nonsynonymous SNV
+14748944	19:14748944_C_A	C	A	2	0.5	exonic	ADGRE3	stopgain
 14748945	19:14748945_A_G	A	G	1	1	exonic	ADGRE3	nonsynonymous SNV
 14748946	19:14748946_G_A	G	A	.	.	exonic	ADGRE3	synonymous SNV
 14748946	19:14748946_G_C	G	C	.	.	exonic	ADGRE3	synonymous SNV
@@ -42131,8 +42131,8 @@
 14854265	19:14854265_G_A	G	A	.	.	exonic	ADGRE2	synonymous SNV
 14854265	19:14854265_G_C	G	C	.	.	exonic	ADGRE2	nonsynonymous SNV
 14854265	19:14854265_G_T	G	T	.	.	exonic	ADGRE2	nonsynonymous SNV
-14854266	19:14854266_C_T	C	T	0	0.5	exonic	ADGRE2	nonsynonymous SNV
 14854266	19:14854266_C_A	C	A	0	0.5	exonic	ADGRE2	nonsynonymous SNV
+14854266	19:14854266_C_T	C	T	0	0.5	exonic	ADGRE2	nonsynonymous SNV
 14854267	19:14854267_T_A	T	A	.	.	exonic	ADGRE2	nonsynonymous SNV
 14854267	19:14854267_T_C	T	C	.	.	exonic	ADGRE2	nonsynonymous SNV
 14854267	19:14854267_T_G	T	G	.	.	exonic	ADGRE2	nonsynonymous SNV
@@ -46853,8 +46853,8 @@
 14877129	19:14877129_C_G	C	G	.	.	exonic	ADGRE2	synonymous SNV
 14877129	19:14877129_C_T	C	T	.	.	exonic	ADGRE2	synonymous SNV
 14877130	19:14877130_A_T	A	T	1	1	exonic	ADGRE2	nonsynonymous SNV
-14877131	19:14877131_C_T	C	T	1	0.5	exonic	ADGRE2	nonsynonymous SNV
 14877131	19:14877131_C_A	C	A	1	0.5	exonic	ADGRE2	nonsynonymous SNV
+14877131	19:14877131_C_T	C	T	1	0.5	exonic	ADGRE2	nonsynonymous SNV
 14877132	19:14877132_G_A	G	A	.	.	exonic	ADGRE2	synonymous SNV
 14877132	19:14877132_G_C	G	C	.	.	exonic	ADGRE2	nonsynonymous SNV
 14877132	19:14877132_G_T	G	T	.	.	exonic	ADGRE2	nonsynonymous SNV
@@ -47391,8 +47391,8 @@
 14883168	19:14883168_T_C	T	C	.	.	exonic	ADGRE2	nonsynonymous SNV
 14883168	19:14883168_T_G	T	G	.	.	exonic	ADGRE2	nonsynonymous SNV
 14883169	19:14883169_C_T	C	T	0	1	exonic	ADGRE2	nonsynonymous SNV
-14883170	19:14883170_G_C	G	C	0	0.5	exonic	ADGRE2	nonsynonymous SNV
-14883170	19:14883170_G_A	G	A	0	0.5	exonic	ADGRE2	synonymous SNV
+14883170	19:14883170_G_A	G	A	0	0.5	exonic	ADGRE2	nonsynonymous SNV
+14883170	19:14883170_G_C	G	C	0	0.5	exonic	ADGRE2	synonymous SNV
 14883171	19:14883171_C_A	C	A	.	.	exonic	ADGRE2	nonsynonymous SNV
 14883171	19:14883171_C_G	C	G	.	.	exonic	ADGRE2	nonsynonymous SNV
 14883171	19:14883171_C_T	C	T	.	.	exonic	ADGRE2	nonsynonymous SNV
@@ -47654,8 +47654,8 @@
 14883270	19:14883270_C_G	C	G	.	.	exonic	ADGRE2	nonsynonymous SNV
 14883270	19:14883270_C_T	C	T	.	.	exonic	ADGRE2	nonsynonymous SNV
 14883271	19:14883271_C_G	C	G	0	1	exonic	ADGRE2	nonsynonymous SNV
-14883272	19:14883272_G_C	G	C	0	0.5	exonic	ADGRE2	nonsynonymous SNV
-14883272	19:14883272_G_A	G	A	0	0.5	exonic	ADGRE2	synonymous SNV
+14883272	19:14883272_G_A	G	A	0	0.5	exonic	ADGRE2	nonsynonymous SNV
+14883272	19:14883272_G_C	G	C	0	0.5	exonic	ADGRE2	synonymous SNV
 14883273	19:14883273_C_A	C	A	.	.	exonic	ADGRE2	nonsynonymous SNV
 14883273	19:14883273_C_G	C	G	.	.	exonic	ADGRE2	nonsynonymous SNV
 14883273	19:14883273_C_T	C	T	.	.	exonic	ADGRE2	nonsynonymous SNV
