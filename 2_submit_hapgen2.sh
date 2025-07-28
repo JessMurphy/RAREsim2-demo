@@ -11,7 +11,6 @@
 # Define the arrays
 pop_list=(AFR EAS NFE SAS)
 NE_list=(17469 14269 11418 14269)
-DL_list=(14627281 14673368 14705483 14508902) 
 
 # Calculate the population index
 pop_index=$(( ($SLURM_ARRAY_TASK_ID - 1) / 10000 ))  # 0-3 for populations

@@ -1,4 +1,4 @@
-#!/bin/bash
+##!/bin/bash
 
 # variables to be updated per simulation
 Nsim=10000 #number of individuals
@@ -7,11 +7,13 @@ b=37 #block number
 
 # input variables
 #WD=/data001/projects/murphjes
-Hap=./input/1000G/${pop}_Block${b}_CDS_ref_added.hap
-Map=./input/1000G/genetic_map_chr${num}_combined.txt
+Hap=./input/1000G/1000G_chr19_block${b}_${pop}_ref.hap
+Map=./input/1000G/genetic_map_chr${num}_combined_b37.txt
+
+echo "Pop: $pop, Batch: $end"
 
 # unzip the haplotype file initially
-if [ "$end" == "100" ]; then gunzip $Hap.gz; fi
+#if [ "$end" == "100" ]; then gunzip $Hap.gz; fi
 
 start=$(($end-99))
 
@@ -46,5 +48,5 @@ echo $i
 done
 
 # rezip the haplotype file at the end
-if [ "$end" == "10000" ]; then gzip $Hap; fi
+#if [ "$end" == "10000" ]; then gzip $Hap; fi
 
