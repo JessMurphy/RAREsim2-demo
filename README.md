@@ -62,7 +62,7 @@ Note: SKATBinary was used in the R scripts.
 
 ## Run Time
 
-|**Step**	|**Time (hh:mm:ss)**|**Notes**|
+|**Step**	|**Time (hh:mm:ss)**|**Notes** |
 |:--------|:------------------|---------|
 | 0_make_directories.sh | 00:00:00 | |
 | 1a_subset_data.R | 00:09:15 | for all populations |
