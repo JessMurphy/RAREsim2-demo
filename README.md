@@ -67,14 +67,14 @@ Note: SKATBinary was used in the R scripts.
 | 0_make_directories.sh | 00:00:00 | |
 | 1a_subset_data.R | 00:09:15 | for all populations |
 | 1b1_make_master_legend.R | 00:00:33 | per population |
-| 1b2_get_annotations.sh | | per population |
+| 1b2_get_annotations.sh | | |
 | 1c_subset_master_legend.R | 00:01:03 | per batch of 100 replicates per population |
-| 2a_run_hapgen2.sh | 01:20:41 | per batch of 100 replicates per population | 
-| 3a_run_RAREsim2_power.sh | | |
-| 3b_run_RAREsim2_power_unequal.sh | | |
-| 3c_run_methods_*_power.R | | |
-| 4a_run_RAREsim2_t1e.sh | | |
-| 4b_run_methods_t1e.R | | |
-| 5_plot_results.R | | |
+| 2a_run_hapgen2.sh | 01:58:14 | per batch of 100 replicates per population | 
+| 3a_run_RAREsim2_power.sh | 03:10:58 | per batch of 100 replicates per population |
+| 3b_run_RAREsim2_power_unequal.sh | 01:54:26 | per batch of 100 replicates per population |
+| 3c_run_methods_*_power.R | 05:32:53 | per batch of 100 replicates per population |
+| 4a_run_RAREsim2_t1e.sh | 00:28:54 | per batch of 100 replicates per population |
+| 4b_run_methods_t1e.R | 01:51:41 | per batch of 100 replicates per population |
+| 5_plot_results.R | 00:00:15 | |
 |**Total**| | |
 
