@@ -5,8 +5,7 @@ Nsim=10000 #number of individuals
 num=19 #chromosome number
 b=37 #block number
 
-# input variables
-#WD=/data001/projects/murphjes
+# input file paths
 Hap=./input/1000G/1000G_chr19_block${b}_${pop}_ref.hap
 Map=./input/1000G/genetic_map_chr${num}_combined_b37.txt
 
@@ -15,15 +14,15 @@ echo "Pop: $pop, Batch: $end"
 # unzip the haplotype file initially
 #if [ "$end" == "100" ]; then gunzip $Hap.gz; fi
 
-start=$(($end-99))
+start=$(($end-99)) # starting simulation replicate for the loop
 
 for i in $(eval echo "{$start..$end}")
 do
 
-# determine n from i
+# determine n (batch number) from i (simulation replicate)
 n=$(( (i - 1) / 1000 + 1 ))
 
-# output variables
+# output file path
 Output=./datasets/Hapgen$((Nsim/1000))K/${pop}/Round${n}/chr${num}.block${b}.${pop}.sim${i}
 
 # save a copy of the legend file
