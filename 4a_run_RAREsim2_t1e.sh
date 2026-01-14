@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # define variables
-nsim=10000 #number of individuals
-num=19 #chromosome number
-b=37 #block number
-ncase=5000
+nsim=10000         # number of individuals
+num=19             # chromosome number
+b=37               # block number
+ncase=5000         # number of cases (also number of controls)
 
 
-start=$(($end-99))
+start=$(($end-99)) # starting simulation replicate number for the loop
 
 # loop through the simulation replicates
 for i in $(eval echo "{$start..$end}")

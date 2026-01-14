@@ -1,20 +1,20 @@
 #!/bin/bash
 
 # define variables
-nsim=10000 #number of individuals
-num=19 #chromosome number
-b=37 #block number
-ncase=5000 #number of cases (also number of controls)
-same=(160 140 120) #pcase necessary for same direction of effect scenario
+nsim=10000         # number of individuals
+num=19             # chromosome number
+b=37               # block number
+ncase=5000         # number of cases (also number of controls)
+same=(160 140 120) # percentages for the expected number of functional variants in cases (same direction of effect)
 
 # 75%/25% split of positive/negative directions of effect
-opp1=(145 130 115) #more causal variants in the cases
-opp2=(115 110 105)
+opp1=(145 130 115) # percentages for the expected number of functional variants in cases (opposite directions of unequal effect)
+opp2=(115 110 105) # percentages for the expected number of functional variants in controls (opposite directions of unequal effect)
 
 
 # CREATE EXPECTED MAC BINS (need target data for all populations)
 
-# combine all of the pcase percentages into one variable
+# combine all of the pcase percentages into one variable for the opposite direction of effect scenario
 pcase=("${opp1[@]}" "${opp2[@]}")
 
 for p in "${!pcase[@]}"; do

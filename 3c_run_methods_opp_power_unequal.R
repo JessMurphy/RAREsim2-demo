@@ -1,29 +1,30 @@
 # Get command-line arguments
-args <- commandArgs(trailingOnly=TRUE)
+args = commandArgs(trailingOnly=TRUE)
 #print(args)
 
-id = as.numeric(args[[1]])
-pop.index = ceiling(id/100)
-pop.list = c("AFR", "EAS", "NFE", "SAS")
-Pop = pop.list[pop.index]
-end = id - 100*(pop.index-1)
-start = end-99
+# define variables
+id = as.numeric(args[[1]])               # array task ID for the current job
+pop.index = ceiling(id/1000)             # population index (1-4) for the current job
+pop.list = c("AFR", "EAS", "NFE", "SAS") # population list
+Pop = pop.list[pop.index]                # specific population for the current job
+end = id - 1000*(pop.index-1)            # ending simulation replicate number for the loop
+start = end-99                           # starting simulation replicate number for the loop
+
+p.opp1 = c(145, 130, 115)                # percentages for the expected number of functional variants in cases
+p.opp2 = c(115, 110, 105)                # percentages for the expected number of functional variants in controls
+maf = 0.01                               # minor allele frequency threshold to define rare variants
+Ncase = 5000                             # number of cases
+Nsim = 10000                             # total simulated sample size (number of individuals)
 
 # Print confirmation
 print(paste0("Running simulation with: Pop = ", Pop, ", Batch = ", end))
 
-p.opp1 = c(145, 130, 115)
-p.opp2 = c(115, 110, 105)
-maf = 0.01
-Ncase = 5000
-Nsim = 10000
-
+# load libraries
 library(dplyr)
 library(tidyr)
 library(SKAT)
 library(data.table)
 
-#dir = '/data001/projects/murphjes/'
 source("./methods_functions.R")
 
 set.seed(0)
@@ -45,6 +46,7 @@ for(i in start:end){
   
   leg.pruned = read.table(paste0("./datasets/Hapgen", Nsim/1000, "K_pruned/", Pop, "/Round1/chr19.block37.", Pop, ".sim", i, ".", Nsim, ".opp.", p.opp2[j], "fun2.100syn.legend-pruned-variants"), header=T)
   
+  # identify pruned and protected variants for later sanity checks
   protected = which(leg$protected==1)
   pruned = which(leg$id %in% leg.pruned$id)
   
@@ -107,12 +109,6 @@ for(i in start:end){
   # identify the common variants
   common = which((cases.count2$af > maf & cases.count2$af < 1-maf) | (controls.count2$af > maf & controls.count2$af < 1-maf))
   
-  # identify/remove the common variants
-  #count.all <- case.count + int.cont.count
-  #N = ncol(cases.geno)+ncol(int.cont.geno) # number of individuals
-  #maf1 = round(0.01*(2*N)) # minor allele frequency (MAF) of 1%
-  #common = which(count.all>maf1)
-  
   # create case/control phenotype matrices for SKAT
   pheno = rep(0, (ncol(cases.geno2) + ncol(controls.geno2))) 
   pheno[1:ncol(cases.geno2)] = 1
@@ -124,16 +120,6 @@ for(i in start:end){
   
   # create null model object for SKAT
   obj = SKAT_Null_Model(as.numeric(pheno) ~ 1, out_type="D") # D-dichotomous
-  
-  # call the SKAT functions
-  #skat = SKATBinary(t(Z), obj, method = 'SKAT')
-  #skato = SKATBinary(t(Z), obj, method = 'SKATO')
-  #burden = SKATBinary(t(Z), obj, method = 'Burden')
-  
-  # save the p-values
-  #burden.p = rbind(burden.p , burden$p.value)
-  #skato.p = rbind(skato.p, skato$p.value)
-  #skat.p = rbind(skat.p, skat$p.value)
   
   # create empty vectors to store the p-values from each gene
   burden.genes.p = skato.genes.p =  skat.genes.p = c()

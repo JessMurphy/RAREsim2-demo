@@ -14,14 +14,14 @@ source ~/.bashrc
 conda activate
 
 # Define the population array
-pop_list=(AFR EAS NFE SAS)
+pop_list=(AFR EAS NFE SAS) # population list
 
 # Calculate the population index
-pop_index=$(( ($SLURM_ARRAY_TASK_ID - 1) / 1000 ))  # 0-3 for populations
+pop_index=$(( ($SLURM_ARRAY_TASK_ID - 1) / 1000 ))  # population index (0-3) for the current job
 
 # Access and export the variables using the task ID
-export pop=${pop_list[$pop_index]}
-export end=$(( $SLURM_ARRAY_TASK_ID - (1000 * $pop_index) ))
+export pop=${pop_list[$pop_index]}                           # specific population for the current job
+export end=$(( $SLURM_ARRAY_TASK_ID - (1000 * $pop_index) )) # batch number (1-10) for the current job
 
 echo "Task ID = $SLURM_ARRAY_TASK_ID, Pop: $pop,  Batch: $end"
 

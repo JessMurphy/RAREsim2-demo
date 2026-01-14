@@ -12,7 +12,7 @@ mkdir -p ./datasets/Hapgen$((Nsim/1000))K_pruned
 mkdir -p ./datasets/Cases
 mkdir -p ./datasets/Controls
 
-pops=(AFR EAS NFE SAS)
+pops=(AFR EAS NFE SAS) # population list
 
 # make result and dataset subdirectories for each population
 
@@ -25,7 +25,7 @@ mkdir -p ./datasets/Cases/${pop}
 mkdir -p ./datasets/Controls/${pop}
 
 # make result and dataset subdirectories within the population directories for each batch
-# (batches of 1,000 simulation replicates for 10,000 total replicates)
+# (10 batches of 1,000 simulation replicates for 10,000 total replicates)
 
 for n in {1..10}; do
 

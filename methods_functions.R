@@ -44,10 +44,10 @@ flip_file = function(file_to_flip, flip, file_type, N=NULL) {
   if (file_type == "leg") {
     
     # Flip ref allele in file2 with alt allele in file
-    file2[flip, "a0"] <- file_to_flip[flip, "a1"]
+    file2[flip, "a0"] = file_to_flip[flip, "a1"]
     
     # Flip alt allele in leg2 with ref allele in leg
-    file2[flip, "a1"] <- file_to_flip[flip, "a0"]
+    file2[flip, "a1"] = file_to_flip[flip, "a0"]
     
     return(file2)
     
@@ -61,10 +61,10 @@ flip_file = function(file_to_flip, flip, file_type, N=NULL) {
   } else if (file_type == "count") {
     
     # Flip the ACs at the variants that need to be flipped
-    file2[flip, "ac"] <- (2*N)-file_to_flip[flip, "ac"]
+    file2[flip, "ac"] = (2*N)-file_to_flip[flip, "ac"]
     
     # Flip the AFs at the variants that need to be flipped
-    file2[flip, "af"] <- 1-file_to_flip[flip, "af"]
+    file2[flip, "af"] = 1-file_to_flip[flip, "af"]
     
     return(file2)
     
@@ -130,6 +130,7 @@ my.power = function(values, alpha=0.05){
   out = length(sig)/length(values2)
   return(out)
 }
+
 
 # define function to add confidence intervals to power results
 add_CIs = function(results, nsim){

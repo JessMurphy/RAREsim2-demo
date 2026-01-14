@@ -1,9 +1,10 @@
 ##!/bin/bash
 
 # variables to be updated per simulation
-Nsim=10000 #number of individuals
-num=19 #chromosome number
-b=37 #block number
+Nsim=10000  # number of individuals
+num=19      # chromosome number
+b=37        # block number
+DL=14499614 # position with nonzero AC in the reference haplotypes for all populations
 
 # input file paths
 Hap=./input/1000G/1000G_chr19_block${b}_${pop}_ref.hap

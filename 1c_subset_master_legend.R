@@ -1,25 +1,22 @@
 # Get command-line arguments
 args = commandArgs(trailingOnly=TRUE)
 
-id = as.numeric(args[[1]])
-pop.index = ceiling(id/10000)
-pop.list = c("AFR", "EAS", "NFE", "SAS")
-pop = pop.list[pop.index]
-end = id - 10000*(pop.index-1)
-start = end - 99
-Nsim = 10000
-
-# block number on chromosome 19
-b = 37
+# define variables
+id = as.numeric(args[[1]])               # array task ID for the current job
+pop.index = ceiling(id/10000)            # population index (1-4) for the current job
+pop.list = c("AFR", "EAS", "NFE", "SAS") # population list
+pop = pop.list[pop.index]                # specific population for the current job
+end = id - 10000*(pop.index-1)           # ending simulation replicate number for the loop
+start = end - 99                         # starting simulation replicate number for the loop
+Nsim = 10000                             # total simulated sample size (number of individuals)
+b = 37                                   # block number on chromosome 19
 
 # Print confirmation
 print(paste0("Running simulation with: Pop = ", pop, ", Batch = ", end))
 
-library(dplyr) #lib.loc="/home/math/murphjes/R_libs/"
+# load libraries
+library(dplyr)
 
-# read in reference legend file
-#leg.ref = read.table(paste0("./input/1000G/", pop, "_Block", b, "_CDS_ref_added.legend"), header = TRUE) 
-  
 # read in master legend file
 master = read.table(paste0("./input/chr19.block", b, ".", pop, ".master.legend"), sep='\t')
 
@@ -70,12 +67,6 @@ for (i in start:end){
   master2$fun = ifelse(master2$fun=="synonymous SNV", "syn", "fun")
   master2$exonic[grepl("exonic", master2$exonic)] = "exonic"
   master2$gene[grepl("ZNF333", master2$gene)] = "ZNF333"
-  
-  # reorder the positions so they match the original reference legend file
-  #master3 = master2[match(leg.ref$position, master2$position),]
-  
-  # check that the positions were ordered correctly
-  #identical(master3$position, leg.ref$position)
 
   # write output legend file
   out.name = paste0("./datasets/Hapgen10K/", pop, "/Round", n, "/chr19.block", b, ".", pop, ".sim", i, ".legend")

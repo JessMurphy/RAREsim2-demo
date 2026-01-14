@@ -11,8 +11,8 @@
 set -e
 
 # calculate necessary variables (population & batch) using the task array ID
-pop_index=$(( ($SLURM_ARRAY_TASK_ID - 1) / 10000 ))  # 0-3 for populations
-end=$(( $SLURM_ARRAY_TASK_ID - (10000 * $pop_index) ))
+pop_index=$(( ($SLURM_ARRAY_TASK_ID - 1) / 10000 ))    # population index (0-3) for the current job
+end=$(( $SLURM_ARRAY_TASK_ID - (10000 * $pop_index) )) # batch number (1-10) for the current job
 
 echo "Task ID = $SLURM_ARRAY_TASK_ID, Pop Index: $pop_index, Batch: $end"
 

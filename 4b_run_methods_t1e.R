@@ -1,22 +1,24 @@
 # Get command-line arguments
-args <- commandArgs(trailingOnly=TRUE)
+args = commandArgs(trailingOnly=TRUE)
 
-id = as.numeric(args[[1]])
-pop.index = ceiling(id/10000)
-pop.list = c("AFR", "EAS", "NFE", "SAS")
-Pop = pop.list[pop.index]
-end = id - 10000*(pop.index-1)
-start = end - 99
+# define variables
+id = as.numeric(args[[1]])               # array task ID for the current job
+pop.index = ceiling(id/10000)            # population index (1-4) for the current job
+pop.list = c("AFR", "EAS", "NFE", "SAS") # population list
+Pop = pop.list[pop.index]                # specific population for the current job
+end = id - 10000*(pop.index-1)           # ending simulation replicate number for the loop
+start = end-99                           # starting simulation replicate number for the loop
+
+n = ceiling(end/1000)                    # batch number (1-10) for the current job
+p.case = 160                             # percentage for the expected number of functional variants in cases
+maf = 0.01                               # minor allele frequency threshold to define rare variants
+Ncase = 5000                             # number of cases
+Nsim = 10000                             # total simulated sample size (number of individuals)
 
 # Print confirmation
 print(paste0("Running simulation with: Pop = ", Pop, ", Batch = ", end))
 
-n = ceiling(end/1000)
-p.case = 160
-maf = 0.01
-Ncase = 5000
-Nsim = 10000
-
+# load libraries
 library(dplyr)
 library(tidyr)
 library(SKAT)
@@ -33,8 +35,7 @@ out.genes.all.p = c()
 # loop through the simulation replicates
 for(i in start:end){
 
-  #if (n==1){
-  if (end==10){ 
+  if (n==1){
 
      # read in the legend file
      leg = read.table(paste0("./datasets/Hapgen", Nsim/1000, "K_pruned/", Pop, "/Round1/chr19.block37.", Pop, ".sim", i, ".", Nsim, ".", p.case, "fun.100syn.legend"), header=T) %>%
@@ -96,12 +97,6 @@ for(i in start:end){
   # identify the common variants
   common = which((cases.count2$af > maf & cases.count2$af < 1-maf) | (controls.count2$af > maf & controls.count2$af < 1-maf))
   
-  # identify/remove the common variants
-  #count.all <- case.count + int.cont.count
-  #N = ncol(cases.geno)+ncol(int.cont.geno) # number of individuals
-  #maf1 = round(0.01*(2*N)) # minor allele frequency (MAF) of 1%
-  #common = which(count.all>maf1)
-  
   # create case/control phenotype matrices for SKAT
   pheno = rep(0, (ncol(cases.geno2) + ncol(controls.geno2)))
   pheno[1:ncol(cases.geno2)] = 1
@@ -113,16 +108,6 @@ for(i in start:end){
   
   # create null model object for SKAT
   obj = SKAT_Null_Model(as.numeric(pheno) ~ 1, out_type="D") # D-dichotomous
-  
-  # call the SKAT functions
-  #skat = SKATBinary(t(Z), obj, method = 'SKAT')
-  #skato = SKATBinary(t(Z), obj, method = 'SKATO')
-  #burden = SKATBinary(t(Z), obj, method = 'Burden')
-  
-  # save the p-values
-  #burden.p = rbind(burden.p , burden$p.value)
-  #skato.p = rbind(skato.p, skato$p.value)
-  #skat.p = rbind(skat.p, skat$p.value)
   
   # create empty vectors to store the p-values from each gene
   burden.genes.p = skato.genes.p =  skat.genes.p = c()

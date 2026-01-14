@@ -1,7 +1,7 @@
 #!/bin/bash
 
 b=37 # block number on chromosome 19
-pop=NFE # population
+pop=NFE # population (need to change for each population)
 
 # get the starting and ending positions of the block
 start=$(sort -n ./input/positions/Block${b}_gencode_positions.txt | head -n 1)

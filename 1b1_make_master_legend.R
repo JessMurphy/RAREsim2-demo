@@ -1,10 +1,11 @@
 # Get command-line arguments
 args = commandArgs(trailingOnly=TRUE)
 
-id = as.numeric(args[[1]])
-pop.index = ceiling(id/10000)
-pop.list = c("AFR", "EAS", "NFE", "SAS")
-pop = pop.list[pop.index]
+# define variables
+id = as.numeric(args[[1]])               # array task ID for the current job
+pop.index = ceiling(id/10000)            # population index (1-4) for the current job
+pop.list = c("AFR", "EAS", "NFE", "SAS") # population list
+pop = pop.list[pop.index]                # specific population for the current job
 print(paste0("Pop: ", pop))
 
 # block number on chromosome 19
@@ -17,6 +18,7 @@ library(DT)
 library(data.table)
 library(stringr)
 
+# REFORMAT REFERENCE HAPLOTYPE AND LEGEND FILES
 
 # read in the gencode coding positions for the specific block
 code.pos = read.table(paste0("./input/positions/Block", b, "_gencode_positions.txt")) %>%
@@ -52,7 +54,6 @@ removed = setdiff(leg$row, leg2$row)
 # remove the duplicated variants from the haplotype file
 hap.pop2 = hap.pop[-removed,]
 
-
 # add zeros back in to the legend and haplotype files for the coding positions
 
 # merge the legend file with the gencode positions
@@ -70,7 +71,7 @@ write.table(hap.ref, paste0("./input/1000G/1000G_chr19_block", b, "_", pop, "_re
 
 # reformat the legend file
 leg.ref = leg.coding %>% 
-  mutate(hap.AC = rowSums(hap.coding), AC = ifelse(is.na(AC), 0, AC),
+  mutate(hap.AC = rowSums(hap.ref), AC = ifelse(is.na(AC), 0, AC),
          id = if_else(str_detect(id, "^rs[0-9]+:"), str_replace(id, "^rs[0-9]+:", "19:"), id),
          id = case_when(is.na(id) ~ paste0("19:", position, "_Un_Known"),
                         str_detect(id, "^19:[0-9]+:[A-Z]+:[A-Z]+$") ~ {
@@ -82,12 +83,7 @@ leg.ref = leg.coding %>%
 # double check they were merged successfully
 #which(leg.ref$AC!=leg.ref$hap.AC) #0
 
-# read in Megan's original reference legend and haplotype files
-#leg.ref.og = read.table(paste0("./input/1000G/old/", pop, "_Block", b, "_CDS_ref_added.legend"), header = TRUE) 
-#hap.ref.og = fread(paste0("./input/1000G/old/", pop, "_Block", b, "_CDS_ref_added.hap.gz")) 
-
-#leg.og.known = leg.ref.og %>% mutate(AC=rowSums(hap.ref.og)) %>% filter(!grepl("Un_Known", id))
-#leg.comb = merge(leg2, leg.og.known, by="position") # the allele counts don't match up between the two
+# CREATE MASTER LEGEND FILE
 
 # subset the known 1000G positions
 pos.1000G = leg.ref %>% filter(!grepl("Un_Known", id)) %>% select(position)
