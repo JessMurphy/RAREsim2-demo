@@ -64,7 +64,7 @@ colors.method = c("#56B4E9", "#0072B2", "#009E73")
 # subset of genes to plot (big, medium, small)
 genes.power = c("ADGRE5", "ADGRE3", "TECR") 
 
-# type I error plot
+# type I error plot for all power genes (Figure S7)
 t1e.plot = ggplot(t1e.long2 %>% filter(Gene %in% genes.power) %>% 
          mutate(Gene=factor(Gene, levels=c("TECR", "ADGRE3", "ADGRE5"), labels=c("TECR (small)", "ADGRE3 (medium)", "ADGRE5 (large)"))),
        aes(x=Pop, y=Value, color=Method)) +
@@ -79,6 +79,7 @@ t1e.plot = ggplot(t1e.long2 %>% filter(Gene %in% genes.power) %>%
 
 ggsave(file = "./results/t1e_plot.jpg", plot = t1e.plot, height = 4, width = 14, units = 'in')
 
+# type I error plot for just ADGRE3 (Figure 1C)
 t1e.plot2 = ggplot(t1e.long2 %>% filter(Gene=="ADGRE3"),
                   aes(x=Pop, y=Value, color=Method)) +
   geom_point(size=2, position = position_dodge(width = 0.5)) +
@@ -91,7 +92,7 @@ t1e.plot2 = ggplot(t1e.long2 %>% filter(Gene=="ADGRE3"),
 
 ggsave(file = "./results/t1e_plot2.jpg", plot = t1e.plot2, height = 4, width = 4.5, units = 'in')
 
-# power (same direction of effect) plot
+# power (same direction of effect) plot for all power genes (top plots in Figures S8-S10)
 for (p in p.same){
   
   power.same.plot = ggplot(power.long2 %>% filter(Gene %in% genes.power, Scenario=="Power (same)", pcase==p) %>% 
@@ -109,6 +110,7 @@ for (p in p.same){
   ggsave(file = paste0("./results/power_same_plot_", p, ".jpg"), plot = power.same.plot, height = 6, width = 14, units = 'in')
 }
 
+# power (same direction of effect) plot for just ADGRE3 (Figure 1B)
 power.same.plot2 = ggplot(power.long2 %>% filter(Gene=="ADGRE3", Scenario=="Power (same)", pcase==p.same[2]),
                    aes(x=Pop, y=Value, color=Method)) +
   geom_point(size=2, position = position_dodge(width = 0.5)) +
@@ -121,7 +123,7 @@ power.same.plot2 = ggplot(power.long2 %>% filter(Gene=="ADGRE3", Scenario=="Powe
 
 ggsave(file = paste0("./results/power_same_plot2_", p.same[2], ".jpg"), plot = power.same.plot2, height = 6, width = 4.5, units = 'in')
 
-# power (opposite direction of effect) plots
+# power (opposite direction of effect) plots for all power genes (bottom plots in Figures S8-S10)
 for (p in p.opp){
   
   power.opp.plot = ggplot(power.long2 %>% filter(Gene %in% genes.power, Scenario=="Power (opp)", pcase==p) %>% 
@@ -139,6 +141,7 @@ for (p in p.opp){
   ggsave(file = paste0("./results/power_opp_plot_", p, ".jpg"), plot = power.opp.plot, height = 6, width = 14, units = 'in')
 }
 
+# power (opposite direction of effect) plot for just ADGRE3 (Figure 1D)
 power.opp.plot2 = ggplot(power.long2 %>% filter(Gene=="ADGRE3", Scenario=="Power (opp)", pcase==p.opp[2]),
                           aes(x=Pop, y=Value, color=Method)) +
   geom_point(size=2, position = position_dodge(width = 0.5)) +
@@ -151,7 +154,7 @@ power.opp.plot2 = ggplot(power.long2 %>% filter(Gene=="ADGRE3", Scenario=="Power
 
 ggsave(file = paste0("./results/power_opp_plot2_", p.opp[2], ".jpg"), plot = power.opp.plot2, height = 6, width = 4.5, units = 'in')
 
-# power (opposite direction of effect with unequal percentages) plots
+# power (opposite direction of effect with unequal percentages) plots (middle plots in Figures S8-S10)
 for (p in 1:length(p.opp)){
   
   power.opp.unequal.plot = ggplot(power.long2 %>% filter(Gene %in% genes.power, Scenario=="Power (opp unequal)", pcase==paste0(p.opp1[p], ", ", p.opp2[p])) %>% 
