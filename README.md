@@ -7,11 +7,11 @@ We used a high-performance computing cluster with 2048 AMD cores and 16TB memory
 
 We ran the pipeline using a singularity container with R version 4.2.1, python version 3.10.6, and Hapgen2 version 2.2.0 installed. See below for a list of R packages that were used.
 
-<img src="R%20session%20info.png" width="60%">
+<img src="R%20session%20info.png" width="70%">
 
 ## Pipeline
 
-<img src="pipeline.png" width="80%">
+<img src="pipeline.png" width="90%">
 
 ### 0_make_directories.sh
 
