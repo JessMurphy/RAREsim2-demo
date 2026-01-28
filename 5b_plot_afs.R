@@ -128,7 +128,7 @@ TECR.afs.diff.plot = ggplot() +
   labs(y='Difference in Proportion of Functional Variants (Simulated - Target)', x='MAC bin', title="TECR (small)") +
   theme_bw(base_size=17)
 
-ggsave(file = "./test/prop_diff_TECR_new.jpg", plot = TECR.afs.diff.plot, height = 8, width = 14, units = 'in')
+ggsave(file = "./test/prop_diff_TECR.jpg", plot = TECR.afs.diff.plot, height = 8, width = 14, units = 'in')
 
 # ADGRE3 AFS plot (Figure S5)
 ADGRE3.afs.diff.plot = ggplot() +
@@ -138,7 +138,7 @@ ADGRE3.afs.diff.plot = ggplot() +
   labs(y='Difference in Proportion of Functional Variants (Simulated - Target)', x='MAC bin', title="ADGRE3 (medium)") +
   theme_bw(base_size=17)
 
-ggsave(file = "./test/prop_diff_ADGRE3_new.jpg", plot = ADGRE3.afs.diff.plot, height = 8, width = 14, units = 'in')
+ggsave(file = "./test/prop_diff_ADGRE3.jpg", plot = ADGRE3.afs.diff.plot, height = 8, width = 14, units = 'in')
 
 # ADGRE5 AFS plot (Figure S6)
 ADGRE5.afs.diff.plot = ggplot() +
@@ -148,5 +148,5 @@ ADGRE5.afs.diff.plot = ggplot() +
   labs(y='Difference in Proportion of Functional Variants (Simulated - Target)', x='MAC bin', title="ADGRE5 (large)") +
   theme_bw(base_size=17)
 
-ggsave(file = "./test/prop_diff_ADGRE5_new.jpg", plot = ADGRE5.afs.diff.plot, height = 8, width = 14, units = 'in')
+ggsave(file = "./test/prop_diff_ADGRE5.jpg", plot = ADGRE5.afs.diff.plot, height = 8, width = 14, units = 'in')
 
