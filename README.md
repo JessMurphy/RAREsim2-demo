@@ -7,9 +7,11 @@ We used a high-performance computing cluster with 2048 AMD cores and 16TB memory
 
 We ran the pipeline using a singularity container with R version 4.2.1, python version 3.10.6, and Hapgen2 version 2.2.0 installed. See below for a list of R packages that were used.
 
-![R session info](R%20session%20info.png)
+<img src="R%20session%20info.png" width="60%">
 
 ## Pipeline
+
+<img src="pipeline.png" width="80%">
 
 ### 0_make_directories.sh
 
@@ -43,7 +45,7 @@ Note: Heterozygote/homozygote risks of 1.00/1.00 were used along with a disease 
 
 ### 3_submit_power_analysis.sh
 
-Submits the pipeline for running the power analysis.
+Submits the pipeline for running the power analyses.
 
 * **3a_run_RAREsim2_power.sh**: runs RAREsim2 to prune the variants down for the same and opposite directions of effect power scenarios
 * **3b_run_RAREsim2_power_unequal.sh**: runs RAREsim2 to prune the variants down for the opposite direction of effect power scenario with unequal proportions of risk and protective variants
@@ -51,30 +53,38 @@ Submits the pipeline for running the power analysis.
 * **3c_run_methods_opp_power_unequal.R**: runs the methods to calculate the power for the opposite direction of effect scenario with unequal proportions of risk and protective variants
 * **3c_run_methods_same_power.R**: runs the methods to calculate the power for the same direction of effect scenario
 
-Note: SKATBinary was used in the R scripts.
-
 ### 4_submit_t1e_analysis.sh
+
+Submits the pipeline for running the type I error analysis.
 
 * **4a_run_RAREsim2_t1e.sh**: runs RAREsim2 to prune the variants down for the type I error scenario with no effect
 * **4b_run_methods_t1e.R**: runs the methods to calculate the type I error for no effect scenario
 
-### 5_plot_results.R
+Note: SKATBinary was used in the R scripts in Steps 4 and 5.
 
-## Run Time
+### 5_submit_results.sh
+
+Submits the scripts to maket the plots.
+
+* **5a_plot_results.R**: plots the type I error and power results (Figures 1B-D, S7-S10 in the paper)
+* **5b_plot_afs.R**: plots the difference in allele frequency spectrum (AFS) distributions between the simulated and target (gnomAD) data (Figures S4-S6 in the paper)
+
+## Run Times
+
+For the steps noted below, batches of 100 simulation replicates per population were run in parallel. The different directions of effect were generally run in parallel while the three different scenarios within each direction of effect were run sequentially.
 
 |**Step**	|**Time (hh:mm:ss)**|**Notes** |
 |:--------|:------------------|---------|
 | 0_make_directories.sh | 00:00:00 | |
 | 1a_subset_data.R | 00:09:15 | for all populations |
-| 1b1_make_master_legend.R | 00:00:33 | per population |
-| 1b2_get_annotations.sh | | |
-| 1c_subset_master_legend.R | 00:01:03 | per batch of 100 replicates per population |
-| 2a_run_hapgen2.sh | 01:58:14 | per batch of 100 replicates per population | 
-| 3a_run_RAREsim2_power.sh | 03:10:58 | per batch of 100 replicates per population |
-| 3b_run_RAREsim2_power_unequal.sh | 01:54:26 | per batch of 100 replicates per population |
-| 3c_run_methods_*_power.R | 05:32:53 | per batch of 100 replicates per population |
-| 4a_run_RAREsim2_t1e.sh | 00:28:54 | per batch of 100 replicates per population |
-| 4b_run_methods_t1e.R | 01:51:41 | per batch of 100 replicates per population |
-| 5_plot_results.R | 00:00:15 | |
-|**Total**| | |
+| 1b1_make_master_legend.R | 00:00:33 | average per population |
+| 1c_subset_master_legend.R | 00:01:03 | average per batch of 100 replicates per population |
+| 2a_run_hapgen2.sh | 01:58:14 | average per batch of 100 replicates per population | 
+| 3a_run_RAREsim2_power.sh | 03:10:58 | average per batch of 100 replicates per population (six scenarios) |
+| 3b_run_RAREsim2_power_unequal.sh | 01:54:26 | average per batch of 100 replicates per population (three scenarios) |
+| 3c_run_methods_*_power.R | 05:32:53 | average per batch of 100 replicates per population per direction of effect (three scenarios) |
+| 4a_run_RAREsim2_t1e.sh | 00:28:54 | average per batch of 100 replicates per population (only one scenario) |
+| 4b_run_methods_t1e.R | 01:51:41 | average per batch of 100 replicates per population (only one scenario) |
+| 5a_plot_results.R | 00:00:15 | for all populations/scenarios |
+| 5a_plot_results.R | 00:00:11 | for all populations/scenarios |
 
