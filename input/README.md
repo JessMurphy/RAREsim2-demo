@@ -10,4 +10,4 @@ All blocks refer to chromosome 19.
 * **positions**: gencode coding positions for each block (consistent across ancestries)
 
 ## Files
-* **chr19.block37.*.master.legend**:
+* **chr19.block37.*.master.legend**: master legend file with annotation information for all known and unknown coding positions (one file for each population)
