@@ -86,5 +86,5 @@ For the steps noted below, batches of 100 simulation replicates per population w
 | 4a_run_RAREsim2_t1e.sh | 00:28:54 | average per batch of 100 replicates per population (only one scenario) |
 | 4b_run_methods_t1e.R | 01:51:41 | average per batch of 100 replicates per population (only one scenario) |
 | 5a_plot_results.R | 00:00:15 | for all populations/scenarios |
-| 5a_plot_results.R | 00:00:11 | for all populations/scenarios |
+| 5b_plot_afs.R | 00:00:11 | for all populations/scenarios |
 
