@@ -3,9 +3,8 @@ args = commandArgs(trailingOnly=TRUE)
 
 # define variables
 id = as.numeric(args[[1]])               # array task ID for the current job
-pop.index = ceiling(id/10000)            # population index (1-4) for the current job
 pop.list = c("AFR", "EAS", "NFE", "SAS") # population list
-pop = pop.list[pop.index]                # specific population for the current job
+pop = pop.list[id]                       # specific population for the current job
 print(paste0("Pop: ", pop))
 
 # block number on chromosome 19
@@ -14,7 +13,7 @@ b = 37
 # load libraries
 library(dplyr)
 library(tidyr)
-library(DT)
+#library(DT)
 library(data.table)
 library(stringr)
 
@@ -65,9 +64,8 @@ hap.ref = as.data.frame(matrix(0, nrow=nrow(leg.coding), ncol=ncol(hap.pop2)))
 # add the 1000G haplotypes back in
 hap.ref[which(!is.na(leg.coding$id)),] = hap.pop2
 
-# save the haplotypes for input into Hapgen2
-write.table(hap.ref, paste0("./input/1000G/1000G_chr19_block", b, "_", pop, "_ref.hap"), 
-            quote=F, row.names=F, col.names=F)
+# track positions explicitly so haplotype rows can be filtered to match the legend
+hap.ref$position = leg.coding$position
 
 # reformat the legend file
 leg.ref = leg.coding %>% 
@@ -208,4 +206,20 @@ anno[-introns, "fun"] = anno.exo$fun
   
 # merge the functional annotations with the master legend file
 leg.master = cbind(master, anno) %>% select(position, id, a0, a1, AC, prob, InEx, gene, fun)
+
+# remove intronic variants from the master legend
+keep = is.na(leg.master$InEx) | leg.master$InEx != "intronic"
+leg.master = leg.master[keep, ]
+
+# keep reference haplotype rows for positions that remain in the legend
+hap.ref = hap.ref %>% filter(position %in% unique(leg.master$position))
+
+# order both outputs by position before writing
+leg.master = leg.master %>% arrange(position)
+hap.ref = hap.ref %>% arrange(position)
+
+# save the filtered haplotypes for input into Hapgen2
+write.table(hap.ref %>% select(-position), paste0("./input/1000G/1000G_chr19_block", b, "_", pop, "_ref.hap"), 
+            quote=F, row.names=F, col.names=F)
+
 write.table(leg.master, paste0('./input/chr19.block', b, '.', pop, '.master.legend'), row.names=F, col.names=F, quote=F, sep='\t')  

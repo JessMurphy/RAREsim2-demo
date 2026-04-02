@@ -13,6 +13,8 @@ set -e
 source ~/.bashrc
 conda activate
 
+container=/storage/singularity/mixtures.sif
+
 # Define the population array
 pop_list=(AFR EAS NFE SAS) # population list
 
@@ -32,6 +34,6 @@ echo "Task ID = $SLURM_ARRAY_TASK_ID, Pop: $pop,  Batch: $end"
 ./3b_run_RAREsim2_power_unequal.sh > /dev/null 2>&1
 
 # c. Run the rare variant association methods for all of the scenarios
-singularity exec /storage/singularity/mixtures.sif Rscript ./3c_run_methods_same_power.R "$SLURM_ARRAY_TASK_ID"
-singularity exec /storage/singularity/mixtures.sif Rscript ./3c_run_methods_opp_power.R "$SLURM_ARRAY_TASK_ID"
-singularity exec /storage/singularity/mixtures.sif Rscript ./3c_run_methods_opp_power_unequal.R "$SLURM_ARRAY_TASK_ID"
+singularity exec "$container" Rscript ./3c_run_methods_same_power.R "$SLURM_ARRAY_TASK_ID"
+singularity exec "$container" Rscript ./3c_run_methods_opp_power.R "$SLURM_ARRAY_TASK_ID"
+singularity exec "$container" Rscript ./3c_run_methods_opp_power_unequal.R "$SLURM_ARRAY_TASK_ID"

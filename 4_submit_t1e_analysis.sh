@@ -13,6 +13,8 @@ set -e
 source ~/.bashrc
 conda activate
 
+container=/storage/singularity/mixtures.sif
+
 # Define the population array
 pop_list=(AFR EAS NFE SAS) # population list
 
@@ -33,4 +35,4 @@ if [ "$end" -gt 1000 ]; then # the first 1,000 datasets were already created in 
 fi
 
 # b. Run the rare variant association methods for the type I error scenario
-singularity exec /storage/singularity/mixtures.sif Rscript ./4b_run_methods_t1e.R "$SLURM_ARRAY_TASK_ID"
+singularity exec "$container" Rscript ./4b_run_methods_t1e.R "$SLURM_ARRAY_TASK_ID"

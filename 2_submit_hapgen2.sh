@@ -6,6 +6,8 @@
 #SBATCH -p math-alderaan
 #SBATCH --array=100-40000:100
 
+container=/storage/singularity/mixtures.sif
+
 # Define the arrays (population and effective population size)
 pop_list=(AFR EAS NFE SAS)        # population list
 NE_list=(17469 14269 11418 14269) # effective population sizes for each population
